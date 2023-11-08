@@ -8,7 +8,7 @@ from llama_index import ServiceContext
 from llama_index.llms import OpenAI
 from llama_index import download_loader
 
-openai.api_key = "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"
+openai.api_key = st.secrets.openai_key
 
 st.title("📝 File Q&A ") 
 

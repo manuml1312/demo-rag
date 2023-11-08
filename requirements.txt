@@ -7,3 +7,6 @@ llama_index
 transformers 
 pypdf 
 replicate
+pytorch
+tensorflow
+flax

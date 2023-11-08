@@ -32,11 +32,12 @@ embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 service_context = ServiceContext.from_defaults(
     llm=llm, embed_model=embed_model)
 
-documents = SimpleDirectoryReader(input_dir="./data").load_data() 
+reader = SimpleDirectoryReader(input_dir="./data")
+documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
-# if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
-#         st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
+if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
+        st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
 
 if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})

@@ -47,7 +47,7 @@ loader = GithubRepositoryReader(
     concurrent_requests =    10,
 )
 
-docs = loader.load_data(branch="main")
+docs = loader.load_data("99c9dd06122bdebb8108ce39d320b07d04bc5c99")
 # reader = SimpleDirectoryReader(input_dir="/data/")
 documents=docs.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)

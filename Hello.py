@@ -9,7 +9,7 @@ from llama_index import download_loader
 # pdf=download_loader('PDFReader')
 # from llama_hub.github_repo import GithubRepositoryReader, GithubClient,PDFReader
 
-
+os.environ["REPLICATE_API_TOKEN"] = "r8_VIpRfodHy75ZM7GUguQM56Zz44Sa4G10p4Eku"
 REPLICATE_API_TOKEN = "r8_VIpRfodHy75ZM7GUguQM56Zz44Sa4G10p4Eku"
 github_token="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"
 

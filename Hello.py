@@ -7,7 +7,7 @@ from llama_index import ServiceContext
 from llama_index.llms import Replicate
 from llama_index import download_loader
 # pdf=download_loader('PDFReader')
-from llama_hub.github_repo import GithubRepositoryReader, GithubClient,PDFReader
+# from llama_hub.github_repo import GithubRepositoryReader, GithubClient,PDFReader
 
 
 REPLICATE_API_TOKEN = "r8_VIpRfodHy75ZM7GUguQM56Zz44Sa4G10p4Eku"
@@ -49,8 +49,8 @@ service_context = ServiceContext.from_defaults(
 # )
 # docs = loader.load_data(commit_sha="99c9dd06122bdebb8108ce39d320b07d04bc5c99")
 
-reader = PDFReader()
-documents=reader.load_data("./Scaling_Instruction_Finetuned_model.pdf") 
+reader = SimpleDirectoryReader(recursive=True)
+documents=reader.load_data("/data/") 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine

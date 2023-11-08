@@ -10,7 +10,7 @@ from llama_index.llms import Replicate
 REPLICATE_API_TOKEN = "r8_VIpRfodHy75ZM7GUguQM56Zz44Sa4G10p4Eku"
 
 st.title("📝 File Q&A ") 
-uploaded_file = st.file_uploader("Upload an article", type=("txt", "md")) 
+uploaded_file = st.file_uploader("Upload an article", type=("txt", "md","pdf")) 
 question = st.text_input(
     "Ask something about the article",
     placeholder="Can you give me a short summary?",
@@ -30,7 +30,7 @@ service_context = ServiceContext.from_defaults(
     llm=llm, embed_model=embed_model
 )
 
-documents = SimpleDirectoryReader("/content/").load_data()
+documents = uploaded_file
 index = VectorStoreIndex.from_documents(
     documents, service_context=service_context
 )

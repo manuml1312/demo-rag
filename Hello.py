@@ -6,7 +6,7 @@ from llama_index.embeddings import HuggingFaceEmbedding
 from llama_index import ServiceContext
 from llama_index.llms import Replicate
 from llama_index import download_loader
-# download_loader("GithubRepositoryReader")
+pdf=download_loader('PDFReader')
 from llama_hub.github_repo import GithubRepositoryReader, GithubClient
 
 
@@ -49,7 +49,7 @@ service_context = ServiceContext.from_defaults(
 # )
 
 # docs = loader.load_data(commit_sha="99c9dd06122bdebb8108ce39d320b07d04bc5c99")
-reader = SimpleDirectoryReader(input_dir="./data")
+reader = pdf("Scaling_Instruction_Finetuned_model.pdf")
 documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 

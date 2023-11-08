@@ -42,9 +42,9 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-for message in st.session_state.messages: # Display the prior chat messages
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+# for message in st.session_state.messages: # Display the prior chat messages
+#     with st.chat_message(message["role"]):
+#         st.write(message["content"])
 
 st.write("pre")
 response=st.session_state.chat_engine.chat(prompt)

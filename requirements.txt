@@ -7,6 +7,6 @@ llama_index
 transformers 
 pypdf 
 replicate
-pytorch
+torch
 tensorflow
 flax

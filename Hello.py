@@ -10,12 +10,6 @@ from llama_index import download_loader
 os.environ["REPLICATE_API_TOKEN"] = "r8_VIpRfodHy75ZM7GUguQM56Zz44Sa4G10p4Eku"
 
 st.title("📝 File Q&A ") 
-# uploaded_file = st.file_uploader("Upload an article", type=("txt", "md","pdf")) 
-# question = st.text_input(
-#     "Ask something about the article",
-#     placeholder="Can you give me a short summary?",
-#     # disabled=not uploaded_file,
-# )
 
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
@@ -32,7 +26,7 @@ embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 service_context = ServiceContext.from_defaults(
     llm=llm, embed_model=embed_model)
 
-reader = SimpleDirectoryReader(input_dir="./data",recursive=True)
+reader = SimpleDirectoryReader(input_dir="./data")
 documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
@@ -42,14 +36,11 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-# for message in st.session_state.messages: # Display the prior chat messages
-#     with st.chat_message(message["role"]):
-#         st.write(message["content"])
-
-st.write("pre")
-response=st.session_state.chat_engine.chat(prompt)
-# st.write("### Answer")
-st.write(response.response)
-
-message={'role':'assistant','content':response.response}
-st.session_state.messages.append(message)
+# If last message is not from assistant, generate a new response
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = st.session_state.chat_engine.chat(prompt)
+            st.write(response.response)
+            message = {"role": "assistant", "content": response.response}
+            st.session_state.messages.append(message)

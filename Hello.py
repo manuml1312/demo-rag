@@ -48,8 +48,7 @@ for message in st.session_state.messages: # Display the prior chat messages
 
 st.write("pre")
 response=st.session_state.chat_engine.chat(prompt)
-
-st.write("### Answer")
+# st.write("### Answer")
 st.write(response.response)
 
 message={'role':'assistant','content':response.response}

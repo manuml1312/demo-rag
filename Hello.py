@@ -43,7 +43,8 @@ if prompt := st.chat_input("Your question"): # Prompt for user input and save to
     st.session_state.messages.append({"role": "user", "content": prompt})
 
 # query_engine = index.as_query_engine(service_context=service_context)
-response=st.session_state.chat_engine.query(prompt)
+st.write("pre")
+response=st.session_state.chat_engine.chat(prompt)
 
 st.write("### Answer")
 st.write(response)

@@ -1,7 +1,7 @@
 # Second
 import streamlit as st 
 import os
-from llama_index import VectorStoreIndex, SimpleDirectoryReader
+from llama_index import VectorStoreIndex, SimpleDirectoryReader , Document
 from llama_index.embeddings import HuggingFaceEmbedding
 from llama_index import ServiceContext
 from llama_index.llms import Replicate
@@ -49,7 +49,7 @@ service_context = ServiceContext.from_defaults(
 # )
 # docs = loader.load_data(commit_sha="99c9dd06122bdebb8108ce39d320b07d04bc5c99")
 
-reader = SimpleDirectoryReader(input_files="./data",recursive=True)
+reader = SimpleDirectoryReader(input_files="/data",recursive=True)
 documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
@@ -60,7 +60,7 @@ if prompt := st.chat_input("Your question"): # Prompt for user input and save to
     st.session_state.messages.append({"role": "user", "content": prompt})
 
 # query_engine = index.as_query_engine(service_context=service_context)
-st.write("pre")
+# st.write("pre")
 response=st.session_state.chat_engine.chat(prompt)
 
 st.write("### Answer")

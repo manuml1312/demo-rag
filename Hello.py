@@ -1,13 +1,14 @@
 # Second
 import streamlit as st 
 import os
+import openai
 from llama_index import VectorStoreIndex, SimpleDirectoryReader , Document
 from llama_index.embeddings import HuggingFaceEmbedding
 from llama_index import ServiceContext
-from llama_index.llms import Replicate
+from llama_index.llms import OpenAI
 from llama_index import download_loader
 
-os.environ["REPLICATE_API_TOKEN"] = "r8_VIpRfodHy75ZM7GUguQM56Zz44Sa4G10p4Eku"
+openai.api_key = "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"
 
 st.title("📝 File Q&A ") 
 
@@ -16,16 +17,10 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Ask me a question about Scaling Instruction Finetuned Model!"}
     ]
     
-llama2_7b_chat = "meta/llama-2-7b-chat:8e6975e5ed6174911a6ff3d60540dfd4844201974602551e10e9e87ab143d81e"
-llm = Replicate(
-    model=llama2_7b_chat,
-    temperature=0.01,
-    additional_kwargs={"top_p": 1, "max_new_tokens": 300})
-
-embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
-service_context = ServiceContext.from_defaults(
-    llm=llm, embed_model=embed_model)
-
+llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert on the Streamlit Python library and your job is to answer 
+          technical questions. Assume that all questions are related to the Streamlit Python library. Keep your answers technical and based on 
+                   facts – do not hallucinate features.""")
+service_context = ServiceContext.from_defaults(llm=llm)
 reader = SimpleDirectoryReader(input_dir="./data")
 documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)

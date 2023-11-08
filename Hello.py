@@ -11,7 +11,7 @@ from llama_hub.github_repo import GithubRepositoryReader, GithubClient
 
 
 REPLICATE_API_TOKEN = "r8_VIpRfodHy75ZM7GUguQM56Zz44Sa4G10p4Eku"
-github_token="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"
+github_token="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"
 
 st.title("📝 File Q&A ") 
 # uploaded_file = st.file_uploader("Upload an article", type=("txt", "md","pdf")) 

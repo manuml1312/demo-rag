@@ -10,3 +10,4 @@ replicate
 torch
 tensorflow
 flax
+llama_hub

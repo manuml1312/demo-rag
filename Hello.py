@@ -45,6 +45,7 @@ loader = GithubRepositoryReader(
     filter_file_extensions = ([".pdf"], GithubRepositoryReader.FilterType.INCLUDE),
     verbose =                True,
     concurrent_requests =    10,
+    node_parser=False
 )
 
 docs = loader.load_data(commit_sha="99c9dd06122bdebb8108ce39d320b07d04bc5c99")

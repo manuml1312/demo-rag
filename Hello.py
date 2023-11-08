@@ -3,7 +3,7 @@ import streamlit as st
 import os
 import openai
 from llama_index import VectorStoreIndex, SimpleDirectoryReader , Document
-from llama_index.embeddings import HuggingFaceEmbedding,OpenAIEmbedding
+from llama_index.embeddings import HuggingFaceEmbedding  #,OpenAIEmbedding
 from llama_index import ServiceContext
 from llama_index.llms import OpenAI
 
@@ -19,8 +19,8 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
 llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert on the Streamlit Python library and your job is to answer 
           technical questions. Assume that all questions are related to the Streamlit Python library. Keep your answers technical and based on 
                    facts – do not hallucinate features.""")
-embed=OpenAIEmbedding()
-service_context = ServiceContext.from_defaults(llm=llm,embed_model=embed)
+#embed=OpenAIEmbedding()
+service_context = ServiceContext.from_defaults(llm=llm) #,embed_model=embed)
 reader = SimpleDirectoryReader(input_dir="./data")
 documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)

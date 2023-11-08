@@ -11,3 +11,4 @@ torch
 tensorflow
 flax
 llama_hub
+openai

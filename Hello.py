@@ -5,9 +5,13 @@ from llama_index import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.embeddings import HuggingFaceEmbedding
 from llama_index import ServiceContext
 from llama_index.llms import Replicate
+from llama_index import download_loader
+download_loader("GithubRepositoryReader")
+from llama_hub.github_repo import GithubRepositoryReader, GithubClient
 
 
 REPLICATE_API_TOKEN = "r8_VIpRfodHy75ZM7GUguQM56Zz44Sa4G10p4Eku"
+github_token="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"
 
 st.title("📝 File Q&A ") 
 # uploaded_file = st.file_uploader("Upload an article", type=("txt", "md","pdf")) 
@@ -32,8 +36,20 @@ embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 service_context = ServiceContext.from_defaults(
     llm=llm, embed_model=embed_model)
 
-reader = SimpleDirectoryReader(input_dir="./data")
-documents=reader.load_data() 
+github_client = GithubClient(github_token)
+loader = GithubRepositoryReader(
+    github_client,
+    owner =                  "manuml1312",
+    repo =                   "demo-rag",
+    filter_directories =     (["data"], GithubRepositoryReader.FilterType.INCLUDE),
+    filter_file_extensions = ([".pdf"], GithubRepositoryReader.FilterType.INCLUDE),
+    verbose =                True,
+    concurrent_requests =    10,
+)
+
+docs = loader.load_data(branch="main")
+# reader = SimpleDirectoryReader(input_dir="/data/")
+documents=docs.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine

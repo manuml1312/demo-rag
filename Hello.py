@@ -42,8 +42,8 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-query_engine = index.as_query_engine(service_context=service_context)
-response=query_engine.query(prompt)
+# query_engine = index.as_query_engine(service_context=service_context)
+response=st.session_state.chat_engine.query(prompt)
 
 st.write("### Answer")
 st.write(response)

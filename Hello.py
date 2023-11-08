@@ -26,26 +26,24 @@ llama2_7b_chat = "meta/llama-2-7b-chat:8e6975e5ed6174911a6ff3d60540dfd4844201974
 llm = Replicate(
     model=llama2_7b_chat,
     temperature=0.01,
-    additional_kwargs={"top_p": 1, "max_new_tokens": 300},
-)
+    additional_kwargs={"top_p": 1, "max_new_tokens": 300})
 
 embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 service_context = ServiceContext.from_defaults(
-    llm=llm, embed_model=embed_model
-)
-
-documents = SimpleDirectoryReader(input_dir="./pages",recursive=True).load_data()  #uploaded_file
-index = VectorStoreIndex.from_documents(
-    documents, service_context=service_context
-)
-
-# index.storage_context.persist()
+    llm=llm, embed_model=embed_model)
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
 
 if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
+    
+documents = SimpleDirectoryReader(input_dir="./pages/").load_data()  #uploaded_file
+index = VectorStoreIndex.from_documents(documents, service_context=service_context)
+
+# index.storage_context.persist()
+
+
     
 query_engine = index.as_query_engine(service_context=service_context)
 response=query_engine.query(prompt)

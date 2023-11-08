@@ -36,21 +36,21 @@ embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
 service_context = ServiceContext.from_defaults(
     llm=llm, embed_model=embed_model)
 
-github_client = GithubClient(github_token)
-loader = GithubRepositoryReader(
-    github_client,
-    owner =                  "manuml1312",
-    repo =                   "demo-rag",
-    filter_directories =     (["data"], GithubRepositoryReader.FilterType.INCLUDE),
-    filter_file_extensions = ([".pdf"], GithubRepositoryReader.FilterType.INCLUDE),
-    verbose =                True,
-    concurrent_requests =    10,
-    use_parser=False
-)
+# github_client = GithubClient(github_token)
+# loader = GithubRepositoryReader(
+#     github_client,
+#     owner =                  "manuml1312",
+#     repo =                   "demo-rag",
+#     filter_directories =     (["data"], GithubRepositoryReader.FilterType.INCLUDE),
+#     filter_file_extensions = ([".pdf"], GithubRepositoryReader.FilterType.INCLUDE),
+#     verbose =                True,
+#     concurrent_requests =    10,
+#     use_parser=False
+# )
 
-docs = loader.load_data(commit_sha="99c9dd06122bdebb8108ce39d320b07d04bc5c99")
-# reader = SimpleDirectoryReader(input_dir="/data/")
-documents=docs.load_data() 
+# docs = loader.load_data(commit_sha="99c9dd06122bdebb8108ce39d320b07d04bc5c99")
+reader = SimpleDirectoryReader(input_dir="./mount/src/demo-rag/data/")
+documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine

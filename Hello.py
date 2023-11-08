@@ -6,7 +6,7 @@ from llama_index.embeddings import HuggingFaceEmbedding
 from llama_index import ServiceContext
 from llama_index.llms import Replicate
 from llama_index import download_loader
-download_loader("GithubRepositoryReader")
+# download_loader("GithubRepositoryReader")
 from llama_hub.github_repo import GithubRepositoryReader, GithubClient
 
 

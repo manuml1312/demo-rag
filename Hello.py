@@ -14,7 +14,7 @@ st.title("📝 File Q&A ")
 
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
-        {"role": "assistant", "content": "Ask me a question about the Chemical Composition of Arecanut!"}
+        {"role": "assistant", "content": "Ask me a question about the Oil Well Integrity Manual!"}
     ]
     
 llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert on the Oil Well Integrity manual and your job is to answer 

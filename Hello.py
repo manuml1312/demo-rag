@@ -12,7 +12,7 @@ openai.api_key = st.secrets.openai_key #
 st.title("📝 Material Processing Guide Chatbot ") 
 
 with st.sidebar:
-    st.text("Note: The material processing document only has details w.r.t Bayflex")
+    st.text("Note: The material processing document \n only has details w.r.t Bayflex")
  
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [

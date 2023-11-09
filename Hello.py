@@ -29,7 +29,10 @@ index = VectorStoreIndex.from_documents(documents, service_context=service_conte
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
 
-if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
+# st.text_input("Ask me something about Oil Well Integrity",placeholder="Your Question here")
+
+# if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
+if prompt :=st.text_input("Ask me something about Oil Well Integrity",placeholder="Your Question Here"):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
 # If last message is not from assistant, generate a new response

@@ -22,8 +22,7 @@ llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an
                    facts – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 
-# reader = SimpleDirectoryReader(input_dir="./data")
-reader=SimpleDirectoryReader(commit_sha="3c5afe61f3166455c1e7c593359dd315a0c4000b")
+reader = SimpleDirectoryReader(input_dir="./data")
 documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 

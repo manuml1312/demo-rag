@@ -9,24 +9,13 @@ from llama_index.llms import OpenAI
 
 openai.api_key = st.secrets.openai_key #
 
-st.title("📝 Covestro Chatbot ") 
+st.title("📝 Covestro Material Guide Chatbot ") 
 
 # with st.sidebar:
 #     st.text("Note: The material processing document \n only has details w.r.t Bayflex")
 
 if "reader" not in st.session_state:
-    st.session_state.reader = SimpleDirectoryReader(input_dir="./data")
-
-st.write("Please select the category of information that you want to know about")
-if st.button("Our Materials"):
-    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Materials/")
-if st.button("Our Products"):
-    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Products/")
-if st.button("Industries we serve"):
-    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Industries/")
-if st.button("Our Inspiration"):
-    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Inspiration/")
-
+    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Materials")
 
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [

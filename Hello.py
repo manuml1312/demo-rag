@@ -16,13 +16,13 @@ st.title("📝 Material Processing Guide Chatbot ")
 
 st.write("Choose what you want to know about")
 if st.button("Materials"):
-    reader = SimpleDirectoryReader(input_dir="./data/Materials/")
+    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Materials/")
 if st.button("Products"):
-    reader = SimpleDirectoryReader(input_dir="./data/Products/")
+    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Products/")
 if st.button("Industries"):
-    reader = SimpleDirectoryReader(input_dir="./data/Industries/")
+    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Industries/")
 if st.button("Inspiration"):
-    reader = SimpleDirectoryReader(input_dir="./data/Inspiration/")
+    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Inspiration/")
 
 
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
@@ -36,7 +36,7 @@ llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an
                    facts – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 
-documents=reader.load_data() 
+documents=st.session_state.reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine

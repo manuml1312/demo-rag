@@ -44,7 +44,7 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 
 # if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
-if prompt :=st.text_input("How can i help you with you today?",placeholder="Your Question Here"):
+if prompt :=st.text_input("How can i help you with you today?",placeholder="Your Question Here",disabled= not documents):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
 # If last message is not from assistant, generate a new response

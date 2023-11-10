@@ -22,9 +22,8 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Mention your queries!"}
     ]
     
-llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert on the Covestro company details which
-      are mentioned in the supplied document.Answer the questions asked about the company and its products as per the supplied
-      facts.Dont summarise the answers,keep them in detail and technical. Keep your answers accurate and based on 
+llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are a chatbot to help users select materials.Answer
+there queries about the materials and its uses from the document supplied.Keep the answers technical and in detail dont summarise. Keep your answers accurate and based on 
                    facts – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 

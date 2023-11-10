@@ -15,7 +15,7 @@ st.title("📝 Material Processing Guide Chatbot ")
 #     st.text("Note: The material processing document \n only has details w.r.t Bayflex")
 
 if "reader" not in st.session_state:
-    st.session_state.reader = SimpleDirectoryReader()
+    st.session_state.reader = SimpleDirectoryReader(input_dir="./data")
 
 st.write("Choose what you want to know about")
 if st.button("Materials"):

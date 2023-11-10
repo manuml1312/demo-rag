@@ -25,7 +25,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
 llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert on the Covestro company details which
       are mentioned in the supplied document.Answer the questions asked about the company and its products as per the supplied
       facts.Dont summarise the answers,keep them in detail and technical. Keep your answers accurate and based on 
-                   facts – do not hallucinate features. If you dont know the answer say that "We dont have any material that can serve your application",""")
+                   facts – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 
 documents=st.session_state.reader.load_data() 

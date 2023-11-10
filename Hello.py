@@ -23,7 +23,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
     ]
     
 llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are a chatbot to help users select materials.Answer
-there queries about the materials and its uses from the document supplied.Keep the answers technical and in detail dont summarise. Keep your answers accurate and based on 
+there queries about the materials and its uses from the document supplied.Keep the answers technical and explain the details in multiple small paragraphs. Keep your answers accurate and based on 
                    facts – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 

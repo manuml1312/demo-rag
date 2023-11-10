@@ -14,8 +14,8 @@ st.title("📝 Covestro Material Guide Chatbot ")
 # with st.sidebar:
 #     st.text("Note: The material processing document \n only has details w.r.t Bayflex")
 
-if "reader" not in st.session_state:
-    st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Material")
+# if "reader" not in st.session_state:
+#     st.session_state.reader = 
 
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
@@ -27,7 +27,8 @@ there queries about the materials and its uses from the document supplied.Keep t
                    facts – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 
-documents=st.session_state.reader.load_data() 
+documents=SimpleDirectoryReader(input_dir="./data/Material")
+documents=documents.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine

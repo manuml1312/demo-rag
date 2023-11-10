@@ -16,7 +16,7 @@ st.title("📝 Material Processing Guide Chatbot ")
 
 st.write("Choose what you want to know about")
 if st.button("Materials"):
-    reader = SimpleDirectoryReader(input_dir="./data/Materials"/)
+    reader = SimpleDirectoryReader(input_dir="./data/Materials/")
 if st.button("Products"):
     reader = SimpleDirectoryReader(input_dir="./data/Products/")
 if st.button("Industries"):

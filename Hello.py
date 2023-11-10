@@ -11,31 +11,40 @@ openai.api_key = st.secrets.openai_key #
 
 st.title("📝 Material Processing Guide Chatbot ") 
 
-with st.sidebar:
-    st.text("Note: The material processing document \n only has details w.r.t Bayflex")
- 
+# with st.sidebar:
+#     st.text("Note: The material processing document \n only has details w.r.t Bayflex")
+
+st.write("Choose what you want to know about")
+if st.button("Materials"):
+    reader = SimpleDirectoryReader(input_dir="./data/Materials"/)
+if st.button("Products"):
+    reader = SimpleDirectoryReader(input_dir="./data/Products/")
+if st.button("Industries"):
+    reader = SimpleDirectoryReader(input_dir="./data/Industries/")
+if st.button("Inspiration"):
+    reader = SimpleDirectoryReader(input_dir="./data/Inspiration/")
+
+
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
-        {"role": "assistant", "content": "Mention the material requirements!"}
+        {"role": "assistant", "content": "Mention your queries!"}
     ]
     
-llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert on the the material processing guide which
-      are mentioned in the supplied document.Answer the questions asked about the processing of the material technically as per the supplied
+llm = OpenAI(model="gpt-3.5-turbo", temperature=0.3, system_prompt="""You are an expert on the Covestro company details which
+      are mentioned in the supplied document.Answer the questions asked about the company and its products as per the supplied
       facts.Dont summarise the answers,keep them in detail and technical. Keep your answers accurate and based on 
                    facts – do not hallucinate features.""")
 
 service_context = ServiceContext.from_defaults(llm=llm) 
-reader = SimpleDirectoryReader(input_dir="./data")
 documents=reader.load_data() 
 index = VectorStoreIndex.from_documents(documents, service_context=service_context)
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
 
-# st.text_input("Mention your requirements, based on which I can suggest materials",placeholder="Your processing queries here")
 
 # if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
-if prompt :=st.text_input("How can i help you with your material processing query?",placeholder="Your Question Here"):
+if prompt :=st.text_input("How can i help you with you today?",placeholder="Your Question Here"):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
 # If last message is not from assistant, generate a new response

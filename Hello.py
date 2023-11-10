@@ -9,7 +9,7 @@ from llama_index.llms import OpenAI
 
 openai.api_key = st.secrets.openai_key #
 
-st.title("📝 Material Processing Guide Chatbot ") 
+st.title("📝 Covestro Chatbot ") 
 
 # with st.sidebar:
 #     st.text("Note: The material processing document \n only has details w.r.t Bayflex")
@@ -17,14 +17,14 @@ st.title("📝 Material Processing Guide Chatbot ")
 if "reader" not in st.session_state:
     st.session_state.reader = SimpleDirectoryReader(input_dir="./data")
 
-st.write("Choose what you want to know about")
-if st.button("Materials"):
+st.write("Please select the category of information that you want to know about")
+if st.button("Our Materials"):
     st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Materials/")
-if st.button("Products"):
+if st.button("Our Products"):
     st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Products/")
-if st.button("Industries"):
+if st.button("Industries we serve"):
     st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Industries/")
-if st.button("Inspiration"):
+if st.button("Our Inspiration"):
     st.session_state.reader = SimpleDirectoryReader(input_dir="./data/Inspiration/")
 
 
@@ -47,7 +47,7 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 
 # if prompt := st.chat_input("Your question"): # Prompt for user input and save to chat history
-if prompt :=st.text_input("How can i help you with you today?",placeholder="Your Question Here",disabled= not documents):
+if prompt :=st.text_input("How can i help you today?",placeholder="Your query here",disabled= not documents):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
 # If last message is not from assistant, generate a new response

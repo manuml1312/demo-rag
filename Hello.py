@@ -12,7 +12,7 @@ from llama_index.llms import OpenAI
 st.title("📝 Covestro Material Guide Chatbot ") 
 
 with st.sidebar:
-    openai.api_key = st.text_input("Input your OpenAI_API_Key")
+    openai.api_key = str(st.text_input("Input your OpenAI_API_Key"))
 if not openai.api_key:
     st.write("The demo dosen't resume without the  api_key")
         

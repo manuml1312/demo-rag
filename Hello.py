@@ -23,6 +23,8 @@ if not openai.api_key:
 # if "reader" not in st.session_state:
 #     st.session_state.reader = 
 if openai.api_key:
+    st.experimental_set_query_params()
+
 
     if "messages" not in st.session_state.keys(): # Initialize the chat messages history
         st.session_state.messages = [

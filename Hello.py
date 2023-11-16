@@ -13,7 +13,6 @@ st.title("📝 Covestro Material Guide Chatbot ")
 
 with st.sidebar:
     openai.api_key = str(st.text_input("Input your OpenAI_API_Key"))
-    st.write(openai.api_key)
 if not openai.api_key:
     st.write("The demo dosen't resume without the  api_key")
         

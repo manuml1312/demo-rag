@@ -14,7 +14,7 @@ st.title("📝 Covestro Material Guide Chatbot ")
 with st.sidebar:
     openai.api_key = st.text_input("Input your OpenAI_API_Key")
 if not openai.api_key:
-    st.write("The demo will be forcefully halted without a key")
+    st.write("The demo dosen't resume without the  api_key")
         
         
 # with st.sidebar:
